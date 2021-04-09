@@ -127,94 +127,101 @@ class _CalculoImcWidgetState extends State<CalculoImcWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Container(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 6),
-              child: Column(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 1,
-                      groupValue: _radioValue,
-                      onChanged: _valueSexochange,
-                    ),
-                    new Text("Homem"),
-                    Radio(
-                      value: 2,
-                      groupValue: _radioValue,
-                      onChanged: _valueSexochange,
-                    ),
-                    new Text("Mulher")
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 1,
-                      groupValue: _radioType,
-                      onChanged: _valueTypechange,
-                    ),
-                    new Text("IMC"),
-                    Radio(
-                      value: 2,
-                      groupValue: _radioType,
-                      onChanged: _valueTypechange,
-                    ),
-                    new Text("IAC")
-                  ],
-                ),
-              ]),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 6),
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                //Altura
-                controller: alturaController,
-                validator: (value) {
-                  return value.isEmpty ? "Informe a altura" : null;
-                },
-                decoration: InputDecoration(
-                  labelText: "Altura em cm",
+    return Center(
+      child: Form(
+        key: _formKey,
+        child: Container(
+          child: Column(
+            children: [
+              Container(
+                margin:
+                    EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 6),
+                child: Column(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Radio(
+                        value: 1,
+                        groupValue: _radioValue,
+                        onChanged: _valueSexochange,
+                      ),
+                      new Text("Homem"),
+                      Radio(
+                        value: 2,
+                        groupValue: _radioValue,
+                        onChanged: _valueSexochange,
+                      ),
+                      new Text("Mulher")
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Radio(
+                        value: 1,
+                        groupValue: _radioType,
+                        onChanged: _valueTypechange,
+                      ),
+                      new Text("IMC"),
+                      Radio(
+                        value: 2,
+                        groupValue: _radioType,
+                        onChanged: _valueTypechange,
+                      ),
+                      new Text("IAC")
+                    ],
+                  ),
+                ]),
+              ),
+              Container(
+                margin:
+                    EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 6),
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  //Altura
+                  controller: alturaController,
+                  validator: (value) {
+                    return value.isEmpty ? "Informe a altura" : null;
+                  },
+                  decoration: InputDecoration(
+                    labelText: "Altura em cm",
+                  ),
                 ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 6),
-              child: TextFormField(
-                keyboardType: TextInputType.number,
-                //Peso
-                controller: pesoController,
-                validator: (value) {
-                  return value.isEmpty ? informativo : null;
-                },
-                decoration: InputDecoration(
-                  labelText: tipo,
+              Container(
+                margin:
+                    EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 6),
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  //Peso
+                  controller: pesoController,
+                  validator: (value) {
+                    return value.isEmpty ? informativo : null;
+                  },
+                  decoration: InputDecoration(
+                    labelText: tipo,
+                  ),
                 ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 6),
-              child: Text(_resultadoimc == null ? "" : _resultadoimc),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 6),
-              child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState.validate()) {
-                    _calcularImc();
-                  }
-                },
-                child: Text("Calcular"),
+              Container(
+                margin:
+                    EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 6),
+                child: Text(_resultadoimc == null ? "" : _resultadoimc),
               ),
-            ),
-          ],
+              Container(
+                margin:
+                    EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 6),
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      _calcularImc();
+                    }
+                  },
+                  child: Text("Calcular"),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
