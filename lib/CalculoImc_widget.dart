@@ -10,7 +10,7 @@ class CalculoImcWidget extends StatefulWidget {
 class _CalculoImcWidgetState extends State<CalculoImcWidget> {
   int _radioValue = 0;
   int _radioType = 0;
-  String tipo = "";
+  String tipo = "", _strClassificacao = "";
   String informativo = "";
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController alturaController = TextEditingController();
@@ -23,15 +23,18 @@ class _CalculoImcWidgetState extends State<CalculoImcWidget> {
       double peso = double.parse(pesoController.text);
       double imc = peso / pow(altura, 2);
       setState(() {
-        _resultadoimc = imc.toStringAsFixed(2) + "\n\n" + getClassificacao(imc);
+        getClassificacao(imc);
+        _resultadoimc =
+            "IMC = " + imc.toStringAsFixed(2) + "\n\n" + _strClassificacao;
       });
     } else {
-      double altura = double.parse(alturaController.text);
-      altura *= sqrt(altura);
-      double peso = double.parse(pesoController.text);
-      double imc = (peso / altura) - 18;
+      double altura = double.parse(alturaController.text) / 100;
+      double circunferencia = double.parse(pesoController.text);
+      double imc = (circunferencia / altura) * sqrt(altura);
+      getClassificacao(imc);
       setState(() {
-        _resultadoimc = imc.toStringAsFixed(2) + "\n\n" + getClassificacao(imc);
+        _resultadoimc =
+            "IAC = " + imc.toStringAsFixed(2) + "\n\n" + _strClassificacao;
       });
     }
   }
@@ -39,6 +42,8 @@ class _CalculoImcWidgetState extends State<CalculoImcWidget> {
   void _valueSexochange(int value) {
     setState(() {
       _radioValue = value;
+      _resultadoimc = "";
+      _strClassificacao = "";
     });
   }
 
@@ -47,6 +52,8 @@ class _CalculoImcWidgetState extends State<CalculoImcWidget> {
       _radioType = value;
       tipo = _radioType == 1 ? "Peso em kg" : "Circunferência em cm";
       informativo = _radioType == 1 ? "Informe o peso" : "Informe o quadril";
+      _resultadoimc = "";
+      _strClassificacao = "";
     });
   }
 
@@ -55,11 +62,12 @@ class _CalculoImcWidgetState extends State<CalculoImcWidget> {
       _radioValue = 1;
       _radioType = 1;
       tipo = "Peso em kg";
+      informativo = "Informe o peso";
     });
     super.initState();
   }
 
-  String getClassificacao(num imc) {
+  void getClassificacao(num imc) {
     String strClassificacao = "";
 
     if (_radioType == 1) {
@@ -92,17 +100,21 @@ class _CalculoImcWidgetState extends State<CalculoImcWidget> {
       }
     } else {
       if (_radioValue == 1) {
-        if (imc < 20) {
+        if (imc < 21) {
+          strClassificacao = "Abaixo do normal";
+        } else if (imc < 32.9) {
           strClassificacao = "Adiposidade normal";
-        } else if (imc < 25) {
+        } else if (imc < 38) {
           strClassificacao = "Sobrepeso";
         } else {
           strClassificacao = "Obesidade";
         }
       } else {
-        if (imc < 32) {
+        if (imc < 8) {
+          strClassificacao = "Abaixo do normal";
+        } else if (imc < 20.9) {
           strClassificacao = "Adiposidade normal";
-        } else if (imc < 38) {
+        } else if (imc < 25) {
           strClassificacao = "Sobrepeso";
         } else {
           strClassificacao = "Obesidade";
@@ -110,7 +122,7 @@ class _CalculoImcWidgetState extends State<CalculoImcWidget> {
       }
     }
 
-    return strClassificacao;
+    _strClassificacao = strClassificacao;
   }
 
   @override
@@ -189,7 +201,7 @@ class _CalculoImcWidgetState extends State<CalculoImcWidget> {
             ),
             Container(
               margin: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 6),
-              child: Text(_resultadoimc == null ? "" : "IMC = $_resultadoimc"),
+              child: Text(_resultadoimc == null ? "" : _resultadoimc),
             ),
             Container(
               margin: EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 6),
