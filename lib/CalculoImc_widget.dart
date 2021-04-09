@@ -58,12 +58,10 @@ class _CalculoImcWidgetState extends State<CalculoImcWidget> {
   }
 
   void initState() {
-    setState(() {
-      _radioValue = 1;
-      _radioType = 1;
-      tipo = "Peso em kg";
-      informativo = "Informe o peso";
-    });
+    _radioValue = 1;
+    _radioType = 1;
+    tipo = "Peso em kg";
+    informativo = "Informe o peso";
     super.initState();
   }
 
