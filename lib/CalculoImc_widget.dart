@@ -19,7 +19,7 @@ class _CalculoImcWidgetState extends State<CalculoImcWidget> {
 
   void _calcularImc() {
     if (_radioType == 1) {
-      double altura = double.parse(alturaController.text) / 100.0;
+      double altura = double.parse(alturaController.text);
       double peso = double.parse(pesoController.text);
       double imc = peso / pow(altura, 2);
       setState(() {
@@ -30,7 +30,7 @@ class _CalculoImcWidgetState extends State<CalculoImcWidget> {
     } else {
       double altura = double.parse(alturaController.text) / 100;
       double circunferencia = double.parse(pesoController.text);
-      double imc = (circunferencia / altura) * sqrt(altura);
+      double imc = (circunferencia / (altura * sqrt(altura))) - 18;
       getClassificacao(imc);
       setState(() {
         _resultadoimc =
