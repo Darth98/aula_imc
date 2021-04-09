@@ -38,20 +38,36 @@ class _CalculoImcWidgetState extends State<CalculoImcWidget> {
   }
 
   String getClassificacao(num imc) {
-    String strClassificacao;
-    if (imc < 18.6) {
-      strClassificacao = "Abaixo do peso";
-    } else if (imc < 25.0) {
-      strClassificacao = "Peso Ideal";
-    } else if (imc < 30.0) {
-      strClassificacao = "Levemente acima do peso";
-    } else if (imc < 35.0) {
-      strClassificacao = "Obesidade grau I";
-    } else if (imc < 40.0) {
-      strClassificacao = "Obesidade grau II";
+    String strClassificacao = "";
+
+    if (_radioValue == 1) {
+      if (imc < 20) {
+        strClassificacao = "Abaixo do peso";
+      } else if (imc < 26.4) {
+        strClassificacao = "Peso Ideal";
+      } else if (imc < 27.8) {
+        strClassificacao = "Levemente acima do peso";
+      } else if (imc < 31.1) {
+        strClassificacao = "Acima do Peso";
+      } else if (imc > 31.1) {
+        strClassificacao = "Obesidade";
+      }
     } else {
-      strClassificacao = "Obesidade grau III";
+      if (imc < 18.5) {
+        strClassificacao = "Abaixo do peso";
+      } else if (imc < 24.9) {
+        strClassificacao = "Peso Ideal";
+      } else if (imc < 29.9) {
+        strClassificacao = "Levemente acima do peso";
+      } else if (imc < 34.9) {
+        strClassificacao = "Obesidade grau I";
+      } else if (imc < 39.9) {
+        strClassificacao = "Obesidade grau II";
+      } else {
+        strClassificacao = "Obesidade grau III";
+      }
     }
+
     return strClassificacao;
   }
 
